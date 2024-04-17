@@ -13,17 +13,17 @@ package com.sunbeam;
 import java.util.Objects;
 import java.util.Scanner;
 
+enum Category {
+	Fantacy, Comedy, Historical, Motivational, Suspencious;
+}
+
 public class Book {
 
 	private String isbn;
 	private double price;
 	private String authorName;
 	private int quantity;
-	private Category category;
-
-	enum Category {
-		Fantacy, Comedy, Historical, Motivational, Suspencious;
-	}
+	Category category;
 
 	public Book() {
 
@@ -70,10 +70,18 @@ public class Book {
 		this.category = category;
 	}
 
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
 	@Override
 	public String toString() {
 		return "Book [isbn=" + isbn + ", price=" + price + ", authorName=" + authorName + ", quantity=" + quantity
-				+ ", category=" + category + "]";
+				+ ", category=" + category.name() + "]";
 	}
 
 	@Override

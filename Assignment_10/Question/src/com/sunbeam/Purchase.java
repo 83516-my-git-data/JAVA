@@ -13,11 +13,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
-//import java.util.Locale.Category;
 import java.util.Scanner;
 import java.util.Set;
-
-import com.sunbeam.Book.Category;
 
 public class Purchase {
 
@@ -25,7 +22,7 @@ public class Purchase {
 		Scanner sc = new Scanner(System.in);
 
 		Set<Book> bookList = new HashSet<>();
-		
+
 		int choice;
 		do {
 			System.out.println("0. Exit");
@@ -43,13 +40,13 @@ public class Purchase {
 
 			case 1:
 				Book b = new Book();
-				
+
 				try {
-				b.accept(sc);
-				}catch(IllegalArgumentException e){
+					b.accept(sc);
+				} catch (IllegalArgumentException e) {
 					System.out.println("ENTER PROPER BOOK CATEGORY...");
 				}
-				
+
 				bookList.add(b);
 				break;
 
@@ -63,7 +60,7 @@ public class Purchase {
 				class CompareCategory implements Comparator<Book> {
 					@Override
 					public int compare(Book o1, Book o2) {
-						return o1.getCategory().compareTo(o2.getCategory());
+						return o1.category.name().compareTo(o2.category.name());
 					}
 				}
 				Comparator<Book> c1 = new CompareCategory();
@@ -77,12 +74,32 @@ public class Purchase {
 				break;
 
 			case 4:
-				class CompareAuthor implements Comparator<Book>{
+				class CompareAuthor implements Comparator<Book> {
 					@Override
 					public int compare(Book o1, Book o2) {
 						return o1.getAuthorName().compareTo(o2.getAuthorName());
 					}
 				}
+				Comparator<Book> c2 = new CompareAuthor();
+				List<Book> s2 = new ArrayList<>(bookList);
+
+				Collections.sort(s2, c2);
+
+				for (Book book : s2) {
+					System.out.println(book);
+				}
+				break;
+
+			case 5:
+				String id;
+				System.out.print("Enter ISBN : ");
+				id = sc.next();
+				Book b1 = new Book();
+				b1.setIsbn(id);
+				if(bookList.contains(b1))
+					System.out.println(bookList.toString());
+				else
+					System.out.println("Book is not exist...");
 				break;
 
 			default:
